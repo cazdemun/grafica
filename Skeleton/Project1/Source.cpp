@@ -2,10 +2,6 @@
 #include "libs\glut.h"
 using namespace std;
 
-//Buscar la carpeta libs:
-//Property->Linker->General->Aditional Libraries Directories 
-//Property->Configuration properties->VC++ Directories (Deberia ser suficiente con el Linker)
-
 void initRendering() {
 	//glColor(R,G,B,alfa)
 	glClearColor(0, 0, 0, 0);
