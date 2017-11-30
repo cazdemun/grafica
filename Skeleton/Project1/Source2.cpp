@@ -10,7 +10,9 @@ static int stacks = 16;
 
 float w;
 float h;
-float near = 2;
+float near = 0.1;
+double dd = -50;
+double d = dd;
 
 static void
 resize(int width, int height) {
@@ -21,7 +23,7 @@ resize(int width, int height) {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	//glFrustum(-ar, ar, -1.0, 1.0, 2.0, 100.0);
-	gluPerspective(80, ar, near, 10.0);
+	gluPerspective(80, ar, near, 50.0);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -63,6 +65,22 @@ dibujarCuadra(double centrox, double centroy, double centroz, double radio ) {
 	}
 }
 
+void dibujar_tunel(double d, int lados, double a) {
+
+	int depth = 60;
+
+	for (int i = 0; i < lados; i++) {
+		for (int j = -depth; j <= depth; j++)
+		{
+			glPushMatrix();
+			glTranslated(2 * cos(i * 2 * 3.1416 / lados), 2 * sin(i * 2 * 3.1416 / lados), -6 + d + 2 * j);
+			glRotated(a, 0, 0, 1);
+			glutSolidCube(1);
+			glPopMatrix();
+		}
+	}
+
+}
 
 static void
 display(void)
@@ -70,8 +88,13 @@ display(void)
 	const double t = glutGet(GLUT_ELAPSED_TIME) / 1000.0;
 	const double a = t*90.0;
 
+
+	d += 0.01;
+
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	/*
 	glColor3f(0.0f, 0.0f, 1.0f);
 	glBegin(GL_LINES);
 	glVertex3f(0, -1.2, 2); //punto inicial
@@ -88,11 +111,22 @@ display(void)
 	glBegin(GL_LINES);
 	glVertex3f(0, -210, -6); //punto inicial
 	glVertex3f(0, 210, -6); //punto final
-	glEnd();
+	glEnd();*/
 
 	glColor3d(1, 1, 1);
 
-	dibujarCuadra(0, -2, -6, 5);
+	//dibujarCuadra(0, -2, -6, 5);
+
+	if (d >= 4) { d = dd; }
+
+	dibujar_tunel(d, 10, a);
+	
+	/*
+	glColor3d(1, 1, 1);
+	glPushMatrix();
+	glTranslated(0, 0, -6 + d);
+	glutWireCube(1);
+	glPopMatrix();
 
 	//1
 	glPushMatrix();
@@ -152,6 +186,7 @@ display(void)
 	glRotated(a, 0, 0, 1);
 	glutWireTeapot(0.8f);
 	glPopMatrix();
+	*/
 
 	glutSwapBuffers();
 }
@@ -210,7 +245,8 @@ idle(void)
 const GLfloat light_ambient[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 const GLfloat light_diffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 const GLfloat light_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-const GLfloat light_position[] = { 2.0f, 5.0f, 5.0f, 0.0f };
+//const GLfloat light_position[] = { 2.0f, 5.0f, 5.0f, 0.0f };
+const GLfloat light_position[] = { 0.0f, 0.0f, 5.0f, 0.0f };
 
 const GLfloat mat_ambient[] = { 0.7f, 0.7f, 0.7f, 1.0f };
 const GLfloat mat_diffuse[] = { 0.8f, 0.8f, 0.8f, 1.0f };
@@ -230,7 +266,7 @@ int main() {
 	glutKeyboardFunc(key);
 	glutIdleFunc(idle);
 
-	glClearColor(1, 1, 1, 1);
+	glClearColor(0, 0, 0, 1);
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 
