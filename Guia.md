@@ -1,6 +1,6 @@
 # Cómo aprender OpenGL y sobrevivir en el intento
 
-Intentaré mantener esta guía lo más personalizada posible, esto es, si algo ya lo sé bien, no lo voy a explicar. Sorry, tengo que aprobar.
+Intentaré mantener esta guía lo más personalizada posible, esto es, si algo ya lo sé bien, no lo voy a explicar.
 
 Hasta donde he visto, puedo separar OpenGL en ciertos temas principales, que tal vez vayan aumentando, lo cual es probable:
 
